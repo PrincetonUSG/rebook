@@ -58,7 +58,7 @@ def alert(alert):
 
 def buy(listing_id, version):
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     try:
         database = Database()
@@ -123,7 +123,7 @@ def landing():
 @app.route('/home', methods=['GET'])
 # @app.route('/index', methods=['GET'])
 def home():
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
     html = render_template('index.html',
                            username=username)
     response = make_response(html)
@@ -136,7 +136,7 @@ def home():
 
 @app.route('/buyerbookbag', methods=['GET'])
 def buyerbookbag():
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
     # send a one-time alert if redirected from a delete, cancel, remove, or add request
     page = ''
     removebookbag_success = alert('removebookbag')
@@ -210,7 +210,7 @@ def buyerbookbag():
 
 @app.route('/buyerbookbagajax/<state>', methods=['POST'])
 def buyerbookbagajax(state):
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
     # send a one-time alert if redirected from a delete, cancel, remove, or add request
     page = state
 
@@ -274,7 +274,7 @@ def buyerbookbagajax(state):
 @app.route('/sellerstation', methods=['GET'])
 def sellerstation():
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     # send a one-time alert if redirected from a delete, cancel, remove, or confirm request
     delete_success = alert('deletelisting')
@@ -343,7 +343,7 @@ def sellerstation():
 @app.route('/sellerstationajax/<state>', methods=['POST'])
 def sellerstationajax(state):
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     page = state
 
@@ -398,7 +398,7 @@ def sellerstationajax(state):
 
 def _searchdatabase(query, sort, filter_condition, filter_price):
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     queryPS = query.replace('%', '\%').replace('_', '\_')
     queryToUse = queryPS.replace(" ", "")
@@ -433,7 +433,7 @@ def _searchdatabase(query, sort, filter_condition, filter_price):
 @app.route('/search', methods=['GET'])
 def search():
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     # obtain the search query, sort, and filter parameters
     query = request.args.get("search")
@@ -489,7 +489,7 @@ def search():
 @app.route('/searchfilters', methods=['POST'])
 def searchfilters():
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     query = request.args.get("search")
     sort = request.args.get("sortOptions")
@@ -543,7 +543,7 @@ def searchfilters():
 @app.route('/postlisting', methods=['GET'])
 def postListing():
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     html = render_template('postlisting.html', username=username)
     response = make_response(html)
@@ -555,7 +555,7 @@ def postListing():
 @app.route('/postlisting2', methods=['GET', 'POST'])
 def postListing2():
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
     isbn = request.args.get("isbn")
     book = getBookInfo(isbn)
 
@@ -570,7 +570,7 @@ def postListing2():
 @app.route('/post2', methods=['POST'])
 def post2():
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     # get information from the posting form
     isbn = request.form["isbn"]
@@ -621,7 +621,7 @@ def post2():
 @app.route('/delete_listing/<listing_id>', methods=['POST'])
 def delete_listing(listing_id):
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     try:
         database = Database()
@@ -672,7 +672,7 @@ def show_listing(listing_id):
     post_success = alert('post')
     update_success = alert('updatelisting')
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     # retrieve listing details from database
     try:
@@ -714,7 +714,7 @@ def show_listing(listing_id):
 
 @app.route('/edit/<listing_id>', methods=['POST'])
 def edit(listing_id):
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     try:
         database = Database()
@@ -745,7 +745,7 @@ def edit(listing_id):
 @app.route('/update_listing/<listing_id>', methods=['POST'])
 def update_listing(listing_id):
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     # store in session that the user is updating a listing in order to generate the correct alert
     session['updatelisting'] = True
@@ -819,7 +819,7 @@ def update_listing(listing_id):
 @app.route('/add_to_bookbag/<listing_id>', methods=['POST'])
 def add_to_bookbag(listing_id):
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
     buyer = username
 
     # add to session that there was an add request to generate alerts
@@ -846,7 +846,7 @@ def remove_from_bookbag(listing_id):
     # store in session that theire is a remove request to generate alerts
     session['removebookbag'] = True
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
     buyer = username
 
     try:
@@ -889,7 +889,7 @@ def buypage(listing_id):
 @app.route('/cancel/<listing_id>', methods=['POST'])
 def cancel(listing_id):
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     # store in session that a transaction was cancelled for alerts
     session['cancelbookbag'] = True
@@ -938,7 +938,7 @@ def cancel(listing_id):
 @app.route('/cancel_from_seller/<listing_id>', methods=['POST'])
 def cancel_from_seller(listing_id):
 
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     # store in session that a transaction was cancelled for alerts
     session['cancellistingseller'] = True
@@ -987,7 +987,7 @@ def cancel_from_seller(listing_id):
 
 @app.route('/confirm_transaction/<listing_id>', methods=['POST'])
 def confirm_transaction(listing_id):
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     # store in session that a transaction was confirmed for alerts
     session['confirmtransaction'] = True
@@ -1055,7 +1055,7 @@ def remove_from_purchase(listing_id):
 
 @app.route('/remove_from_selling_history/<listing_id>', methods=['POST'])
 def remove_from_selling_history(listing_id):
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
 
     # store in session that the user is removing from seller history in order to generate the correct alert
     session['removesellinghistory'] = True
@@ -1086,7 +1086,7 @@ def remove_from_selling_history(listing_id):
 
 @app.route('/faq', methods=['GET'])
 def faq():
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
     html = render_template('faq.html', username=username)
     response = make_response(html)
     return response
@@ -1098,7 +1098,7 @@ def faq():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
     html = render_template('notfound.html', username=username)
     response = make_response(html)
     return response
@@ -1108,7 +1108,7 @@ def page_not_found(error):
 
 @app.route('/error', methods=['GET'])
 def error():
-    username = CASClient().authenticate().rstrip()
+    username = CASClient().authenticate().rstrip().lower()
     html = render_template('error.html', username=username)
     response = make_response(html)
     return response
