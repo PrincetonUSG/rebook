@@ -17,27 +17,8 @@
             <br>
             <div class='row'>
                 {% for photo in listing['photos']%}
-
-                <button class="imagebutton" data-toggle="modal" data-target="#photomodal{{photo[0]}}"><img
-                        class='upload-thumbnail' src='{{photo[1]}}'></button>
-
-
-                <div id="photomodal{{photo[0]}}" class="modal fade bd-example-modal-lg fullmode" tabindex="-1"
-                    role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg fullmode">
-                        <div class="modal-content fullmode">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Image Preview</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body fullmode">
-                                <img class='modal-image' src='{{photo[1]}}'>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <a target="_blank" href={{photo[1]}}>
+                    <img src={{photo[1]}} style="padding: 10px; max-width: 220px; max-height: 220px; width: auto; height: auto;"></a>
                 {%endfor%}
 
             </div>
