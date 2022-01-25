@@ -7,7 +7,7 @@
 
 class Book:
 
-    def __init__(self, isbn, title, subtitle, authors, publisher, publishedDate, description, image, retailPrice):
+    def __init__(self, isbn, title, subtitle, authors, publisher, publishedDate, description, image):
         self._isbn = isbn
         self._title = title
         self._subtitle = subtitle
@@ -16,7 +16,6 @@ class Book:
         self._publishedDate = publishedDate
         self._description = description
         self._image = image
-        self._retailPrice = retailPrice
 
     def __str__(self):
         isbn = 'isbn: ' + self._isbn
@@ -30,10 +29,9 @@ class Book:
         publishedDate = 'published date: ' + self._publishedDate
         description = 'description: ' + self._description
         image = 'image: ' + self._image
-        retailPrice = 'retail price: ' + self._retailPrice
 
         info = [isbn, title, subtitle, authors,
-                publisher, publishedDate, description, image, retailPrice]
+                publisher, publishedDate, description, image]
 
         strInfo = '\n'.join(info)
 
@@ -69,6 +67,3 @@ class Book:
 
     def getImage(self):
         return self._image
-
-    def getRetailPrice(self):
-        return self._retailPrice

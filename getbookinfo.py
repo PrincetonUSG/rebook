@@ -39,7 +39,6 @@ def getBookInfo(isbn):
         publisher = ''
         publishedDate = ''
         description = ''
-        retailPrice = ''
         image=''
         if 'title' in volumeInfo:
             title = volumeInfo['title']
@@ -58,43 +57,8 @@ def getBookInfo(isbn):
             if 'thumbnail' in volumeInfo['imageLinks']:
                 image = volumeInfo['imageLinks']['thumbnail']
 
-        saleInfo = bookInfo['items'][0]['saleInfo']
-        if 'retailPrice' in saleInfo:
-            if saleInfo['retailPrice']['currencyCode'] == 'USD':
-                retailPrice = saleInfo['retailPrice']['amount']
-    
-    # generate url
-    # url = 'https://www.googleapis.com/books/v1/volumes?maxResults=40&q=inauthor:'
-    # for author in authors:
-    #     authorurltext = '\"' + author.replace(" ", "+") + '\"'
-    #     url += authorurltext + "+"
-    # titleurltext = 'intitle:\"' + title.replace(" ", "+") + '\"'
-    # url += titleurltext
-
-    # print(url)
-
-    # # do API call and store result
-    # r = requests.get(url)
-    # req = r.text.replace('false', '\'false\'')
-    # req = req.replace('true', '\'true\'')
-    # bookInfo = eval(req)
-
-    # if 'error' in bookInfo:
-    #     return 'error query'
-    # elif bookInfo['totalItems'] == 0:
-    #     return None
-    # else:
-    #     for i in range(bookInfo['totalItems']):
-            # saleInfo = bookInfo['items'][i]['saleInfo']
-            # volumeInfo = bookInfo['items'][0]['volumeInfo']
-            # if volumeInfo['title'] == title:
-            #     if 'retailPrice' in saleInfo:
-            #         if saleInfo['retailPrice']['currencyCode'] == 'USD':
-            #             retailPrice = saleInfo['retailPrice']['amount']
-            #             break
-
     book = Book(isbn, title, subtitle, authors, publisher,
-                publishedDate, description, image, retailPrice)
+                publishedDate, description, image)
     return book
 
 
