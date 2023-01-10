@@ -185,3 +185,4 @@ $('#clear').on('click', function () {
     $('#clear').addClass('hidden_text_field')
 })
 
+alert("Rebook has been retired. Please list textbooks on TigerReTail (retail.tigerapps.org)!")
