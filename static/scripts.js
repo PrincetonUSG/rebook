@@ -184,5 +184,3 @@ $('#clear').on('click', function () {
     $('#clearimages').val('True')
     $('#clear').addClass('hidden_text_field')
 })
-
-alert("Rebook has been retired. Please list textbooks on TigerReTail (retail.tigerapps.org)!")
